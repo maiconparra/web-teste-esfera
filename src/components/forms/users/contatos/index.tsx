@@ -1,0 +1,1 @@
+export { ContatosForm } from './contatos.form';

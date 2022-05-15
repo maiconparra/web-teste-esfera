@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    @apply flex-initial;
+    @apply gap-0;
+    @apply m-0;
+}
+
+body {
+    @apply bg-[#007FC7];
+    @apply text-black;
+}
+
+input {
+    @apply text-black
+}
+
+
+
+
