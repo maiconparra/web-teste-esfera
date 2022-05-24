@@ -9,7 +9,7 @@
 }
 
 body {
-    @apply bg-[#007FC7];
+    @apply bg-[#fff];
     @apply text-black;
 }
 

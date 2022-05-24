@@ -1,7 +1,7 @@
 import { ContatosInterface } from "./contatos.interface"
 import { EnderecosInterface } from "./enderecos.interface"
 
-export interface ListUsersInterface {
+export interface UsersInterface {
    readonly id: string;
             Nome: string;
             CPF?: string;

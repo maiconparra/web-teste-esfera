@@ -8,9 +8,5 @@ export abstract class ContatosRepository {
     abstract post(values: ContatosInterface): Promise<any>;
     abstract update(values: ContatosInterface): Promise<any>;
     abstract delete(id: string | null): Promise<any>;
-
-    protected errorReport(error: any) {
-        return error.message;
-    }
-
+    
 }

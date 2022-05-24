@@ -5,46 +5,96 @@ import { UserRepository } from "./repositorys/user.repository";
 import { Api } from "../assets/enviroments/api";
 
 //interfaces
-import { ListUsersInterface } from "../interface/users.interface";
+import { UsersInterface } from "../interface/users.interface";
 import axios from "axios";
+import { EstateRequestsTemplate } from "./template/state.requests.template";
 
 
-export class UserService implements UserRepository {
+export class UserService extends EstateRequestsTemplate implements UserRepository {
 
     private baseUrl: any;
 
     constructor() {
+        super();
         const { baseUrl } = Api;
         this.baseUrl = baseUrl;
     }
 
-    public async get(): Promise<ListUsersInterface[] | any> {
+    public async get(): Promise<UsersInterface[] | any> {
 
 
-        const users = await axios.get<Array<ListUsersInterface> | Array<any>>(`${this.baseUrl}/listUsers`);
+        const users = await axios.get<Array<UsersInterface> | Array<any>>(`${this.baseUrl}/listUsers`)
+            .then(value => {
+                if (value.status === 200) {
+                    this.seccessReport(value);
+                } else {
+                    this.warningReport(value);
+                }
+            }).catch(error => {
+                this.errorReport(error);
+            });
 
         return users;
     }
 
     public async getById(userId: string): Promise<any> {
-        const users = await axios.get<Array<ListUsersInterface> | Array<any>>(`${this.baseUrl}/byIdUser/${userId}`);
+        const users = await axios.get<Array<UsersInterface> | Array<any>>(`${this.baseUrl}/byIdUser/${userId}`)
+            .then(value => {
+                if (value.status === 200) {
+                    this.seccessReport(value);
+                } else {
+                    this.warningReport(value);
+                }
+            }).catch(error => {
+                this.errorReport(error);
+            });
+
+        return users;
     }
 
-    public async update(value: ListUsersInterface): Promise<any> {
-        
-        const updateUser = await axios.put<ListUsersInterface>('http://localhost:3334/updateUser', value);
+    public async update(value: UsersInterface): Promise<any> {
+
+        const updateUser = await axios.put<UsersInterface>('http://localhost:3334/updateUser', value)
+            .then(value => {
+                if (value.status === 200) {
+                    this.seccessReport(value);
+                } else {
+                    this.warningReport(value);
+                }
+            }).catch(error => {
+                this.errorReport(error);
+            });
 
         return updateUser;
     }
 
-    public async post(value: ListUsersInterface): Promise<any> {
-        const postUser = await axios.post<ListUsersInterface>('http://localhost:3334/createUser', value);
+    public async post(value: UsersInterface): Promise<any> {
+        const postUser = await axios.post<UsersInterface>(`${this.baseUrl}/createUser`, value)
+            .then(value => {
+                if (value.status === 200) {
+                    this.seccessReport(value);
+                } else {
+                    this.warningReport(value);
+                }
+            }).catch(error => {
+                this.errorReport(error);
+            });
+
         return postUser;
     }
 
     public async delete(id: string | null): Promise<any> {
-        const users = await axios.delete<any>(`${this.baseUrl}/deleteUser/${id}`);
-        
+        const users = await axios.delete<any>(`${this.baseUrl}/deleteUser/${id}`)
+            .then(value => {
+                if (value.status === 200) {
+                    this.seccessReport(value);
+                } else {
+                    this.warningReport(value);
+                }
+            }).catch(error => {
+                this.errorReport(error);
+            });
+
         return users;
     }
 
